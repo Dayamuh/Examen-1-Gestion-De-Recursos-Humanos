@@ -52,19 +52,16 @@ namespace ExamenDefinitivoRRHH
                             case 6:
                                 Reportes();
                                 break;
-                            case 7:
-                                Console.WriteLine("Saliendo del programa.");
-                                break;
+
                             default:
-                                Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
                                 break;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
+                        Console.WriteLine("Opción no válida.");
                     }
-                } while (opcion != 7);
+                } while (opcion != 6);
             }
 
             private void Agregar()
@@ -86,17 +83,16 @@ namespace ExamenDefinitivoRRHH
                         if (double.TryParse(Console.ReadLine(), out double salario))
                         {
                             empleados[i] = new clsEmpleado(cedula, nombre, direccion, telefono, salario);
-                            Console.WriteLine("Empleado agregado exitosamente.");
+                            Console.WriteLine("Empleado agregado con exito");
                             return;
                         }
                     }
                 }
-                Console.WriteLine("No hay espacio para más empleados.");
+                Console.WriteLine("No es posible agregar mas empleados");
             }
 
             private void Consultar()
             {
-                Console.WriteLine("Consultar Empleados");
                 Console.Write("Ingrese la cédula del empleado: ");
                 string cedula = Console.ReadLine();
                 clsEmpleado empleado = ConsultarEmpleadoPorCedula(cedula);
@@ -107,7 +103,7 @@ namespace ExamenDefinitivoRRHH
                 }
                 else
                 {
-                    Console.WriteLine("Empleado no encontrado.");
+                    Console.WriteLine("Empleado no existe");
                 }
             }
 
@@ -118,16 +114,16 @@ namespace ExamenDefinitivoRRHH
 
             private void Modificar()
             {
-                Console.WriteLine("\nModificar Empleados");
+                Console.WriteLine("Modificar Empleados");
                 Console.Write("Ingrese la cédula del empleado a modificar: ");
                 string cedula = Console.ReadLine();
                 clsEmpleado empleado = ConsultarEmpleadoPorCedula(cedula);
                 if (empleado != null)
                 {
-                    Console.WriteLine("\nInformación actual del empleado:");
+                    Console.WriteLine("Información del empleado:");
                     MostrarInformacionEmpleado(empleado);
 
-                    Console.WriteLine("\nIngrese los nuevos datos:");
+                    Console.WriteLine("Ingrese los nuevos datos:");
                     Console.Write("Nombre: ");
                     empleado.Nombre = Console.ReadLine();
                     Console.Write("Dirección: ");
@@ -139,22 +135,22 @@ namespace ExamenDefinitivoRRHH
                     if (double.TryParse(Console.ReadLine(), out double salario))
                     {
                         empleado.Salario = salario;
-                        Console.WriteLine("Empleado modificado exitosamente.");
+                        Console.WriteLine("Empleado modificado con exito");
                     }
                     else
                     {
-                        Console.WriteLine("Salario no válido. No se realizó la modificación.");
+                        Console.WriteLine("Modificacion no valida.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Empleado no encontrado. No se realizó la modificación.");
+                    Console.WriteLine("Empleado no existe");
                 }
             }
 
             private void Borrar()
             {
-                Console.WriteLine("\nBorrar Empleados");
+                Console.WriteLine("Borrar Empleados");
                 Console.Write("Ingrese la cédula del empleado a borrar: ");
                 string cedula = Console.ReadLine();
                 clsEmpleado empleado = ConsultarEmpleadoPorCedula(cedula);
@@ -165,7 +161,7 @@ namespace ExamenDefinitivoRRHH
                         if (empleados[i] != null && empleados[i].Cedula == cedula)
                         {
                             empleados[i] = null;
-                            Console.WriteLine("Empleado borrado exitosamente.");
+                            Console.WriteLine("Empleado borrado con exito");
                             return;
                         }
                     }
@@ -175,7 +171,7 @@ namespace ExamenDefinitivoRRHH
 
             private void InicializarArreglos()
             {
-                Console.WriteLine("\nInicializar Arreglo");
+                Console.WriteLine("Inicializar Arreglo");
                 Console.Write("Ingrese la cantidad de empleados: ");
                 if (int.TryParse(Console.ReadLine(), out int cantidadEmpleados))
                 {
@@ -184,7 +180,7 @@ namespace ExamenDefinitivoRRHH
                 }
                 else
                 {
-                    Console.WriteLine("Cantidad no válida. Inténtelo de nuevo.");
+                    Console.WriteLine("Cantidad no válida");
                 }
             }
 
@@ -193,7 +189,7 @@ namespace ExamenDefinitivoRRHH
                 int opcion;
                 do
                 {
-                    Console.WriteLine("\nMenú de Reportes");
+                    Console.WriteLine("Menú de Reportes");
                     Console.WriteLine("1. Consultar empleados con número de cédula");
                     Console.WriteLine("2. Listar todos los empleados ordenados por nombre");
                     Console.WriteLine("3. Calcular y mostrar el promedio de los salarios");
@@ -208,7 +204,7 @@ namespace ExamenDefinitivoRRHH
                                 Consultar();
                                 break;
                             case 2:
-                                ListarEmpleadosOrdenadosPorNombre();
+                                ListarEmpleados();
                                 break;
                             case 3:
                                 CalcularPromedioSalarios();
@@ -220,7 +216,6 @@ namespace ExamenDefinitivoRRHH
                                 Console.WriteLine("Volviendo al Menú Principal.");
                                 break;
                             default:
-                                Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
                                 break;
                         }
                     }
@@ -231,9 +226,9 @@ namespace ExamenDefinitivoRRHH
                 } while (opcion != 5);
             }
 
-            private void ListarEmpleadosOrdenadosPorNombre()
+            private void ListarEmpleados()
             {
-                Console.WriteLine("\nListar Empleados Ordenados por Nombre");
+                Console.WriteLine("Listar Empleados Ordenados por Nombre");
 
                 var empleadosOrdenados = empleados.Where(e => e != null)
                                                   .OrderBy(e => e.Nombre, StringComparer.OrdinalIgnoreCase)
@@ -247,7 +242,7 @@ namespace ExamenDefinitivoRRHH
 
             private void CalcularPromedioSalarios()
             {
-                Console.WriteLine("\nCalcular Promedio de Salarios");
+                Console.WriteLine("Calcular Promedio de Salarios");
 
                 double totalSalarios = empleados.Where(e => e != null).Sum(e => e.Salario);
                 int contador = empleados.Count(e => e != null);
@@ -265,7 +260,7 @@ namespace ExamenDefinitivoRRHH
 
             private void CalcularSalarioMaximoMinimo()
             {
-                Console.WriteLine("\nCalcular Salario Máximo y Mínimo");
+                Console.WriteLine("Calcular Salario Máximo y Mínimo");
 
                 var empleadosValidos = empleados.Where(e => e != null).ToList();
 
